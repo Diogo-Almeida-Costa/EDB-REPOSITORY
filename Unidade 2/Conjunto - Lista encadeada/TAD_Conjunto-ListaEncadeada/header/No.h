@@ -9,6 +9,8 @@
 
 #include <string>
 
+//O valor é o contéudo que cada nó deve armazenar, enquanto o ponteiro proximo aponta para o próximo
+//nó dessa lista
 class No
 {
 public:

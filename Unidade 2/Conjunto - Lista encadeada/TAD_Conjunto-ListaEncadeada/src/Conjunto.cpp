@@ -14,17 +14,94 @@ Conjunto::~Conjunto()
 
 bool Conjunto::buscar(int elemento) const
 {
-    return false;
+    if(this->quantidade == 0)
+    {
+        return false;
+    }
+    else
+    {
+        No* aux = this->inicio;
+        while(aux != nullptr)
+        {
+            if(elemento == aux->getValor())
+            {
+                return true;
+            }       
+            else
+            {
+                aux = aux->getProximo();
+            }
+        }
+        return false;
+    }
 }
 
 bool Conjunto::inserir(int elemento)
 {
-    return false;
+   No* aux = this->inicio;
+
+   while(aux != nullptr)
+   {
+    if(elemento == aux->getValor())
+    {
+        //o elemento já existe dentro desse nó, como não pode repetição não se insere
+        return false;
+    }
+    else
+    {
+        //Forma de incrementar essa lista
+        aux = aux->getProximo();
+    }
+   }
+   No* novoNo = new No(elemento);
+
+   novoNo->setProximo(this->inicio);
+   this->inicio = novoNo;
+   ++this->quantidade;
+   return true;
+   //Esse novo elemento é adicionado no inicio da lista, como o primeiro elemento
+   //Adicionar como último elemento traria complicação pois precisariamos de uma referência para o anterior
 }
 
 bool Conjunto::remover(int elemento)
 {
-    return false;
+    if(this->quantidade == 0)
+    {
+        return false;
+    }
+    else
+    {
+        No* aux = this->inicio;
+        No* ant = nullptr;
+        while(aux != nullptr)
+        {
+            if(aux->getValor() == elemento)
+            {
+                //Achamos o valor dentro do vetor e precisamos remover ele
+                if(aux == this->inicio)
+                {
+                    //coloco como o inicio o próximo em relação ao auxiliar
+                    this->inicio = aux->getProximo();
+                }
+                else
+                {
+                    //como é um elemento diferente do inicio, seguimos a lógica de usar o anterior para 
+                    //apagarmos o auxiliar
+                    ant->setProximo(aux->getProximo());
+                }
+                delete aux;
+                --this->quantidade;
+                return true;
+            }
+            else
+            {
+                ant = aux; // garantimos que o anterior é sempre o valor antes de auxiliar
+                aux = aux->getProximo();
+            }
+        }
+        //Percorri a lista toda e não achei o elemento, portanto não tem o que remover
+        return false;
+    }
 }
 
 int Conjunto::tamanho() const
