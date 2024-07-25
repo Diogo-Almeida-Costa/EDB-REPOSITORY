@@ -69,6 +69,7 @@ std::string ListaDuplamenteEncadeada::recuperar(int i)
 				}
 			}
 		}
+		return "";
    }
 }
 
@@ -129,28 +130,14 @@ bool ListaDuplamenteEncadeada::inserirNaCauda(std::string s)
 
 bool ListaDuplamenteEncadeada::inserir(int i, std::string s)
 {    
-	/*if(i == 1 && quantidade == 0)
-	{
-		return inserirNaCabeca(s);
-	}*/
-	//verifica se a posição i é válida
-	/*if(i < 0 || i > this->quantidade)
-	{
-		return false;
-	}*/
-
 	if(quantidade == 0)
 	{
 		return inserirNaCabeca(s);
 	}
-
-	//Note que se i igual a zero, estamos inserindo na verdade inserindo na posição adjacente a cabeça
-	if(i == 0)
+	if(i == 1)
 	{
 		return inserirNaCabeca(s);
 	}
-
-	//Note que se i é igual a quantidade, então estamos inserido na posição adjacente a cauda
 	if(i == quantidade)
 	{
 		return inserirNaCauda(s);
@@ -158,31 +145,19 @@ bool ListaDuplamenteEncadeada::inserir(int i, std::string s)
 
 	auto novo = new No<std::string>(s);
 
-	No<std::string> *atual = this->cabeca->getProximo(); //Começa do proximo da cabeça pois cabeça não conta por ser uma sentinela
+	No<std::string>* ant = this->cabeca->getProximo();
 
-	//estamos buscando o elemento localizado na posição i-1, que é o antecessor a posição que queremos inserir o
-	//novo nó
-	for (int pos = 1; pos < i - 1; ++pos) 
+	for(int b = 2; b <= i-1; b++)
 	{
-        if (atual == nullptr) 
-		{
-            return false;
-        }
-        atual = atual->getProximo();
-    }
-
-    novo->setAnterior(atual);
-    novo->setProximo(atual->getProximo());
-    if (atual->getProximo() != nullptr) 
-	{
-        atual->getProximo()->setAnterior(novo);
-    }
-    atual->setProximo(novo);
-
-	++this->quantidade;
-
+		ant = ant->getProximo();
+	}
+	auto prox = ant->getProximo();
+	novo->setAnterior(ant);
+	novo->setProximo(prox);
+	prox->setAnterior(novo);
+	ant->setProximo(novo);
+	++quantidade;
 	return true;
-
 }
 
 std::string ListaDuplamenteEncadeada::removerDaCabeca(void)
