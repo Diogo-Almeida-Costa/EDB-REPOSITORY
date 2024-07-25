@@ -187,20 +187,81 @@ bool ListaDuplamenteEncadeada::inserir(int i, std::string s)
 
 std::string ListaDuplamenteEncadeada::removerDaCabeca(void)
 {   
-	No<std::string>* elemento = this->cabeca->getProximo();
-	this->cabeca->setProximo(elemento->getProximo());
-	elemento->getProximo()->setAnterior(this->cabeca);
-	delete elemento;
+	if(quantidade == 0)
+	{
+		return "";
+	}
+	else
+	{
+		No<std::string>* elemento = this->cabeca->getProximo();
+		this->cabeca->setProximo(elemento->getProximo());
+		elemento->getProximo()->setAnterior(this->cabeca);
+		std::string v = elemento->getValor();
+		delete elemento;
+		--quantidade;
+		return v;
+	}
 }
 
 std::string ListaDuplamenteEncadeada::removerDaCauda(void)
 {    
-    return "";
+    if(quantidade == 0)
+	{
+		return "";
+	}
+	else
+	{
+		No<std::string>* elemento = this->cauda->getAnterior();
+		std::string v = elemento->getValor();
+		this->cauda->setAnterior(elemento->getAnterior());
+		elemento->getAnterior()->setProximo(this->cauda);
+		delete elemento;
+		--quantidade;
+		return v;
+	}
 }
 
 std::string ListaDuplamenteEncadeada::remover(int i)
 {    
-    return "";
+    if(quantidade == 0)
+	{
+		return "";
+	}
+	else
+	{
+		if(i == 1)
+		{
+			return removerDaCabeca();
+		}
+		else if (i == quantidade)
+		{
+			return removerDaCauda();
+		}
+		else
+		{
+			No<std::string>* elemento = this->cabeca->getProximo();
+			for(int b = 1; b < quantidade; b++)
+			{
+				if(i == b)
+				{
+					auto ant = elemento->getAnterior();
+					auto prox = elemento->getProximo();
+					auto v = elemento->getValor();
+					ant->setProximo(prox);
+					prox->setAnterior(ant);
+					delete elemento;
+					--quantidade;
+					return v;
+				}
+				else
+				{
+					elemento = elemento->getProximo();
+				}
+			}
+			return "";
+		}
+		
+	}
 }
 
 void ListaDuplamenteEncadeada::imprimir(void)
