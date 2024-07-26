@@ -138,10 +138,6 @@ bool ListaDuplamenteEncadeada::inserir(int i, std::string s)
 	{
 		return inserirNaCabeca(s);
 	}
-	if(i == quantidade)
-	{
-		return inserirNaCauda(s);
-	}
 
 	auto novo = new No<std::string>(s);
 

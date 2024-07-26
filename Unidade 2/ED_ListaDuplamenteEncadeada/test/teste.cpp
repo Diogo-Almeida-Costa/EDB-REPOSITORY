@@ -1,5 +1,6 @@
 #include "catch_amalgamated.hpp"
 #include "ListaDuplamenteEncadeada.h"
+#include <iostream>
 
 TEST_CASE("Inserir na cabeça da lista") 
 {
@@ -123,9 +124,9 @@ TEST_CASE("Inserir na i-ésima posição da lista")
         CHECK(inseriu);
         
         auto valorRetornado = lista.recuperar(indice);
-
-        CHECK(valorRetornado == valorInserido);
         
+        CHECK(valorRetornado == valorInserido);
+
         int tamanhoDepois = lista.tamanho();
         CHECK(tamanhoAntes+1 == tamanhoDepois);
 

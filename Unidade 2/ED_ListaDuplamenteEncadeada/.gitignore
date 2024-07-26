@@ -1,1 +1,21 @@
-.vscode
+# Ignore arquivos binários
+*.o
+*.a
+*.so
+*.exe
+*.dll
+
+# Ignore diretórios de build
+/bin/
+/lib/
+
+# Ignore arquivos de configuração do editor
+.vscode/
+.DS_Store
+
+# Ignore arquivos de documentação gerados automaticamente
+/doc/
+
+# Ignore outros arquivos temporários
+*.log
+*.tmp
