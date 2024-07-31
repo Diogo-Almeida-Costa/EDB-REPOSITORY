@@ -1,4 +1,4 @@
-#include "Conjunto.h"
+#include "../header/Conjunto.h"
 #include <iostream>
 
 Conjunto::Conjunto()
@@ -40,19 +40,6 @@ bool Conjunto::inserir(int elemento)
 {
    No* aux = this->inicio;
 
-   while(aux != nullptr)
-   {
-    if(elemento == aux->getValor())
-    {
-        //o elemento já existe dentro desse nó, como não pode repetição não se insere
-        return false;
-    }
-    else
-    {
-        //Forma de incrementar essa lista
-        aux = aux->getProximo();
-    }
-   }
    No* novoNo = new No(elemento);
 
    novoNo->setProximo(this->inicio);
@@ -102,6 +89,27 @@ bool Conjunto::remover(int elemento)
         //Percorri a lista toda e não achei o elemento, portanto não tem o que remover
         return false;
     }
+}
+
+int Conjunto::removerRepetidos()
+{
+    int cont = 0;
+    No* aux = inicio->getProximo();
+    while(aux->getProximo() != nullptr)
+    {
+        if(aux->getValor() == aux->getProximo()->getValor())
+        {
+            auto prox = aux->getProximo();
+            aux->setProximo(prox->getProximo());
+            delete prox;
+            cont++;
+        }
+        else
+        {
+            aux = aux->getProximo();
+        }    
+    }
+    return cont;
 }
 
 int Conjunto::tamanho() const

@@ -9,6 +9,7 @@
 
 #include "No.h"
 #include <string>
+#include <stack>
 
 typedef enum {
     OK ,
@@ -38,6 +39,9 @@ public:
     bool inserirNaCabeca(std::string);
     bool inserirNaCauda(std::string);
     bool inserir(int, std::string);
+    bool e_simetrica(void);
+    int removerRepetidos(void);
+    int removeRepeated(void);
 
     std::string removerDaCabeca(void);
     std::string removerDaCauda(void);

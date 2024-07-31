@@ -12,6 +12,7 @@ class Conjunto
         bool inserir(int elemento);
         bool remover(int elemento);
         bool buscar(int elemento) const;
+        int removerRepetidos();
         /*void setInicio(No* i){inicio=i;}*/ //Não seria legal porque permitiria que alguém de fora tivesse acesso
         int tamanho() const;
         void imprimir() const;

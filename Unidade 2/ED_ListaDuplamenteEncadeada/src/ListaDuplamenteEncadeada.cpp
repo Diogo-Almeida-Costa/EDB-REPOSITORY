@@ -4,7 +4,7 @@
 //  Criado por Eiji Adachi Medeiros Barbosa
 //
 
-#include "ListaDuplamenteEncadeada.h"
+#include "../header/ListaDuplamenteEncadeada.h"
 
 ListaDuplamenteEncadeada::ListaDuplamenteEncadeada()
 {
@@ -111,6 +111,31 @@ bool ListaDuplamenteEncadeada::inserirNaCabeca(std::string s)
 
 	++quantidade;
 	
+	return true;
+}
+
+bool ListaDuplamenteEncadeada::e_simetrica(void)
+{
+	std::stack<std::string> pilha;
+	auto aux = this->cabeca->getProximo();
+	while(aux != this->cauda)
+	{
+		pilha.push(aux->getValor());
+		aux = aux->getProximo();
+	}
+	aux = this->cabeca->getProximo();
+	while(aux != this->cauda)
+	{
+		if(aux->getValor() == pilha.top())
+		{
+			aux = aux->getProximo();
+			pilha.pop();
+		}
+		else
+		{
+			return false;
+		}
+	}
 	return true;
 }
 
@@ -233,6 +258,60 @@ std::string ListaDuplamenteEncadeada::remover(int i)
 		}
 		
 	}
+}
+
+int ListaDuplamenteEncadeada::removerRepetidos(void)
+{
+	int cont = 0;
+	auto aux = this->cabeca->getProximo();
+	while(aux->getProximo() != this->cauda)
+	{
+		if(aux->getValor() == aux->getProximo()->getValor())
+		{
+			auto prox = aux->getProximo();
+			auto manter = prox->getProximo();
+			aux->setProximo(manter);
+			manter->setAnterior(aux);
+			delete prox;
+			cont++;
+		}
+		else
+		{
+			aux = aux->getProximo();
+		}
+	}
+	return cont;
+}
+
+int ListaDuplamenteEncadeada::removeRepeated()
+{
+	auto aux = this->cabeca->getProximo();
+	int cont = 0;
+	while(aux != this->cauda)
+	{
+		if(aux->getProximo() != this->cauda)
+		{
+			auto prox = aux->getProximo();
+			while(prox != this->cauda)
+			{
+				if(aux->getValor() == prox->getValor())
+				{
+					auto remover = prox;
+					prox = prox->getProximo();
+					remover->getAnterior()->setProximo(remover->getProximo());
+					remover->getProximo()->setAnterior(remover->getAnterior());
+					delete remover;
+					++cont;
+				}
+				else
+				{
+					prox = prox->getProximo();
+				}
+			}
+		}
+		aux = aux->getProximo();
+	}
+	return cont;
 }
 
 void ListaDuplamenteEncadeada::imprimir(void)

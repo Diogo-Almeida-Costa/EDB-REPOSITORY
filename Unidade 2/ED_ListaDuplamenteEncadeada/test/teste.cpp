@@ -256,3 +256,56 @@ TEST_CASE("Buscar elemento na lista")
         CHECK( verificada == OK );
     } 
 }
+
+TEST_CASE("Verificar a simetria da lista") 
+{
+    ListaDuplamenteEncadeada lista;
+    
+    std::string v[] = {"alpha","bravo","charlie","bravo","alpha"};
+    
+    for(auto s : v)
+    {
+        CHECK( lista.inserirNaCauda( s ) ); 
+    }
+
+    CHECK(lista.e_simetrica());
+
+    ListaDuplamenteEncadeada lista2;
+    
+    std::string v2[] = {"alpha","bravo","charlie","bravo"};
+    
+    for(auto s : v2)
+    {
+        CHECK( lista2.inserirNaCauda( s ) ); 
+    }
+
+    CHECK(lista2.e_simetrica() == false);
+}
+
+TEST_CASE("remover repetidos") 
+{
+    ListaDuplamenteEncadeada lista;
+    
+    std::string v[] = {"alpha","bravo","bravo","bravo", "charlie", "charlie", "novo", "novo", "novo", "ultimo"};
+    
+    for(auto s : v)
+    {
+        CHECK( lista.inserirNaCauda( s ) ); 
+    }
+
+    CHECK(lista.removerRepetidos() == 5);
+}
+
+TEST_CASE("remover repetidos sem ordenação") 
+{
+    ListaDuplamenteEncadeada lista;
+    
+    std::string v[] = {"alpha","bravo", "charlie", "bravo", "charlie", "novo", "bravo", "novo", "aleatorio","novo", "ultimo"};
+    
+    for(auto s : v)
+    {
+        CHECK( lista.inserirNaCauda( s ) ); 
+    }
+
+    CHECK(lista.removeRepeated() == 5);
+}
